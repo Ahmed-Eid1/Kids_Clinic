@@ -357,54 +357,62 @@
               <small>In-person or online</small>
             </button>
           </div>
-          <form class="form-grid" onsubmit="event.preventDefault(); alert('Your booking request has been sent. We will contact you shortly!');">
-            <div class="field">
-              <label for="parentName">Parent Name</label>
-              <input id="parentName" type="text" placeholder="e.g. John Carter" required>
-            </div>
-            <div class="field">
-              <label for="childName">Child Name &amp; Age</label>
-              <input id="childName" type="text" placeholder="e.g. Noah - 4 years old" required>
-            </div>
-            <div class="field">
-              <label for="phone">Phone Number</label>
-              <input id="phone" type="tel" placeholder="+1 (555) 000-0000" required>
-            </div>
-            <div class="field">
-              <label for="doctor">Choose a Doctor</label>
-              <select id="doctor" required>
-                <option value="">Select doctor</option>
-                <option>Dr. Sarah Bennett - Senior Pediatrician</option>
-                <option>Dr. Michael Osei - Neonatal Specialist</option>
-                <option>Dr. Laila Haddad - Child Nutrition</option>
-                <option>Dr. James Whitfield - Pediatric Allergist</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="date">Preferred Date</label>
-              <input id="date" type="date" required>
-            </div>
-            <div class="field">
-              <label for="time">Preferred Time</label>
-              <select id="time" required>
-                <option value="">Select time</option>
-                <option>10:00 AM</option>
-                <option>11:00 AM</option>
-                <option>1:00 PM</option>
-                <option>5:00 PM</option>
-              </select>
-            </div>
-            <div class="field full">
-              <label for="notes">Notes (optional)</label>
-              <input id="notes" type="text" placeholder="Any symptoms or details you'd like to share">
-            </div>
-            <div class="field full">
-              <button type="submit" class="submit-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                Confirm Appointment
-              </button>
-            </div>
-          </form>
+          <form class="form-grid" action="{{ route('appointments.store') }}" method="POST">
+    @csrf
+
+    <div class="field">
+      <label for="patientName">Patient Name</label>
+      <input id="patientName" name="PatientName" type="text" placeholder="e.g. John Carter" required>
+    </div>
+    <div class="field">
+      <label for="DOB">Date of Birth</label>
+      <input id="DOB" name="DateOfBirth" type="date" required>
+    </div>
+    <div class="field">
+      <label for="gender">Gender</label>
+      <select id="gender" name="Gender" required>
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="Phone" type="tel" placeholder="+1 (555) 000-0000" required>
+    </div>
+    <div class="field">
+      <label for="doctor">Choose a Doctor</label>
+      <select id="doctor" name="DoctorID" required>
+        <option value="">Select doctor</option>
+        @foreach($doctors as $doctor)
+          <option value="{{ $doctor->DoctorID }}">
+              {{ $doctor->person->Name }} - {{ $doctor->Specialization }}
+          </option>
+        @endforeach
+      </select>
+    </div>
+    <div class="field">
+      <label for="date">Preferred Date</label>
+      <input id="date" name="AppointmentDate" type="date" required>
+    </div>
+    <div class="field">
+      <label for="time">Preferred Time</label>
+      <select id="time" name="AppointmentTime" required>
+        <option value="">Select time</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="13:00">1:00 PM</option>
+        <option value="17:00">5:00 PM</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <button type="submit" class="submit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Confirm Appointment
+      </button>
+    </div>
+</form>
         </div>
       </div>
     </div>
