@@ -13,7 +13,7 @@
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/css/dash.css">
+    <link rel="stylesheet" href="{{ asset('css/dash.css') }}">
 </head>
 <body>
   
@@ -63,16 +63,19 @@
 
   <div class="nav-group">
     <span class="nav-label">System</span>
-    <a href="#" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.36.62 1 1 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg>
-     log out 
-    </a>
+    <form method="POST" action="{{ route('logout') }}">
+      @csrf
+      <button type="submit" class="nav-item" style="width: 100%; border: none; background: transparent; text-align: left; cursor: pointer;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.36.62 1 1 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg>
+       log out 
+      </button>
+    </form>
   </div>
 
   <div class="sidebar-foot">
     <a href="#" class="mini-profile">
-      <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=200&auto=format&fit=crop" alt="">
-      <div><b>Nour Ali</b><span> Admin</span></div>
+      <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->person->Name ?? 'Admin') }}&background=random" alt="">
+      <div><b>{{ auth()->user()->person->Name ?? 'Admin' }}</b><span> {{ ucfirst(auth()->user()->role ?? 'Admin') }}</span></div>
     </a>
   </div>
 </aside>
@@ -83,8 +86,8 @@
 <main class="main">
   <div class="topbar">
     <div>
-      <h1>Good morning, Nour 👋</h1>
-      <p>Here's what's happening at the clinic today — Saturday, July 11</p>
+      <h1>Good morning, {{ explode(' ', auth()->user()->person->Name ?? 'Admin')[0] }} 👋</h1>
+      <p>Here's what's happening at the clinic today — {{ now()->format('l, F j') }}</p>
     </div>
     <div class="top-actions">
       <div class="search-shell">
@@ -103,34 +106,30 @@
     <div class="stat-card">
       <div class="stat-top">
         <div class="stat-icon si-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <span class="stat-trend trend-up"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l5-5 5 5M12 12V3"/></svg>18.2%</span>
       </div>
-      <b>2,438</b>
+      <b>{{ number_format($visitorsCount) }}</b>
       <span>Website Visitors Today</span>
     </div>
     <div class="stat-card">
       <div class="stat-top">
         <div class="stat-icon si-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
-        <span class="stat-trend trend-up"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l5-5 5 5M12 12V3"/></svg>9.4%</span>
       </div>
-      <b>146</b>
-      <span>New Registrations</span>
+      <b>{{ $newRegistrations }}</b>
+      <span>New Registrations This Month</span>
     </div>
     <div class="stat-card">
       <div class="stat-top">
         <div class="stat-icon si-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg></div>
-        <span class="stat-trend trend-up"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17l5-5 5 5M12 12V3"/></svg>4.1%</span>
       </div>
-      <b>312</b>
+      <b>{{ $appointmentsBooked }}</b>
       <span>Appointments Booked</span>
     </div>
     <div class="stat-card">
       <div class="stat-top">
         <div class="stat-icon si-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></div>
-        <span class="stat-trend trend-down"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 7l5 5 5-5M12 12v9"/></svg>2.3%</span>
       </div>
-      <b>27</b>
-      <span>No-Shows This Week</span>
+      <b>{{ $noShows }}</b>
+      <span>Cancellations / No-Shows</span>
     </div>
   </div>
 
@@ -223,71 +222,31 @@
         </tr>
       </thead>
       <tbody>
+        @forelse($recentRegistrations as $reg)
         <tr>
           <td>
             <div class="person-cell">
-              <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200&auto=format&fit=crop" alt="">
-              <div><b>David Reyes</b><span>Child: Noah, 4y</span></div>
+              <img src="https://ui-avatars.com/api/?name={{ urlencode($reg->Name) }}&background=random" alt="">
+              <div><b>{{ $reg->Name }}</b><span>{{ $reg->Email ?? 'No email' }}</span></div>
             </div>
           </td>
-          <td>Child Treatment</td>
-          <td>Dr. Sarah Bennett</td>
-          <td>2 mins ago</td>
-          <td><span class="status-pill pill-new"><span class="dot"></span>New</span></td>
-          <td><a href="#" class="row-action">View →</a></td>
-        </tr>
-        <tr>
+          <td>Registration</td>
+          <td>-</td>
+          <td>{{ \Carbon\Carbon::parse($reg->created_at)->diffForHumans() }}</td>
           <td>
-            <div class="person-cell">
-              <img src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?q=80&w=200&auto=format&fit=crop" alt="">
-              <div><b>Priya Nair</b><span>Child: Aria, 2y</span></div>
-            </div>
+            @if($reg->role === 'patient')
+                <span class="status-pill pill-new"><span class="dot"></span>Patient</span>
+            @else
+                <span class="status-pill pill-confirmed"><span class="dot"></span>{{ ucfirst($reg->role) }}</span>
+            @endif
           </td>
-          <td>Consultation</td>
-          <td>Dr. Laila Haddad</td>
-          <td>18 mins ago</td>
-          <td><span class="status-pill pill-confirmed"><span class="dot"></span>Confirmed</span></td>
           <td><a href="#" class="row-action">View →</a></td>
         </tr>
+        @empty
         <tr>
-          <td>
-            <div class="person-cell">
-              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=200&auto=format&fit=crop" alt="">
-              <div><b>Emma Clarke</b><span>Child: Leo, 6y</span></div>
-            </div>
-          </td>
-          <td>Vaccination</td>
-          <td>Dr. Michael Osei</td>
-          <td>41 mins ago</td>
-          <td><span class="status-pill pill-pending"><span class="dot"></span>Pending</span></td>
-          <td><a href="#" class="row-action">View →</a></td>
+          <td colspan="6" style="text-align:center; padding: 20px;">No recent registrations found.</td>
         </tr>
-        <tr>
-          <td>
-            <div class="person-cell">
-              <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?q=80&w=200&auto=format&fit=crop" alt="">
-              <div><b>James Whitfield</b><span>Child: Zoe, 8y</span></div>
-            </div>
-          </td>
-          <td>Child Treatment</td>
-          <td>Dr. Sarah Bennett</td>
-          <td>1 hour ago</td>
-          <td><span class="status-pill pill-confirmed"><span class="dot"></span>Confirmed</span></td>
-          <td><a href="#" class="row-action">View →</a></td>
-        </tr>
-        <tr>
-          <td>
-            <div class="person-cell">
-              <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop" alt="">
-              <div><b>Marcus Webb</b><span>Child: Ivy, 3y</span></div>
-            </div>
-          </td>
-          <td>Consultation</td>
-          <td>Dr. Laila Haddad</td>
-          <td>2 hours ago</td>
-          <td><span class="status-pill pill-new"><span class="dot"></span>New</span></td>
-          <td><a href="#" class="row-action">View →</a></td>
-        </tr>
+        @endforelse
       </tbody>
     </table>
   </div>

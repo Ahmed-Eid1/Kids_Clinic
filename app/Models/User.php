@@ -13,15 +13,15 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_DOCTOR = 'doctor';
+    public const ROLE_PATIENT = 'patient';
+
     protected $fillable = [
-        'name',
+        'person_id',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -45,5 +45,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the route to the user's dashboard.
+     */
+    public function dashboardRoute(): string
+    {
+        return match ($this->role) {
+            self::ROLE_ADMIN => '/admin/dashboard',
+            self::ROLE_DOCTOR => '/doctor/dashboard',
+            self::ROLE_PATIENT => '/patient/dashboard',
+            default => '/home',
+        };
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class, 'person_id', 'PersonID');
     }
 }

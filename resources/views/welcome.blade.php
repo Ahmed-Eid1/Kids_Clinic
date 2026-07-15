@@ -29,7 +29,14 @@
       <a href="#schedule">Availability</a>
       <a href="#booking">Book a Visit</a>
     </div>
-    <a href="#booking" class="nav-cta">Book Appointment</a>
+    @auth
+      <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+        @csrf
+        <button type="submit" class="nav-cta" style="border: none; cursor: pointer;">Log Out</button>
+      </form>
+    @else
+      <a href="{{ route('login') }}" class="nav-cta">Log In / Register</a>
+    @endauth
     <button class="burger" aria-label="Menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C2B29" stroke-width="2.3" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>

@@ -348,29 +348,34 @@
         <div class="login-form-side">
             <h1 class="brand-font"> ....login now </h1>
             <br>
-            <form id="loginForm" novalidate method="POST" action="">
+            <form id="loginForm" novalidate method="POST" action="{{ route('login') }}">
+                @csrf
 
                 <div class="mb-3">
                     <label class="form-label"> : email </label>
                     <div class="input-group-custom">
-                        <input type="email" name="email" id="emailField" class="form-control"
-                            placeholder="example@email.com" required>
+                        <input type="email" name="email" id="emailField" class="form-control @error('email') is-invalid @enderror"
+                            placeholder="example@email.com" value="{{ old('email') }}" required>
                         <i class="bi bi-envelope input-icon"></i>
                     </div>
-                    <div class="text-danger invalid-feedback" id="emailError"></div>
+                    @error('email')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">: password</label>
                     <div class="input-group-custom">
-                        <input type="password" name="password" id="passwordField" class="form-control"
+                        <input type="password" name="password" id="passwordField" class="form-control @error('password') is-invalid @enderror"
                             placeholder=".....password" required minlength="6">
                         <br>
                         <button type="button" class="toggle-password" onclick="togglePassword()">
                             <i class="bi bi-eye" id="toggleIcon"></i>
                         </button>
                     </div>
-                    <div class="text-danger invalid-feedback" id="passwordError"></div>
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
 
