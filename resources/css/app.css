@@ -206,3 +206,35 @@ footer p{color:var(--ink-soft); font-size:13.5px; line-height:1.75;}
   .footer-grid{grid-template-columns:1fr;}
 }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+
+
+
+
+
+@media (max-width: 600px) {
+ 
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    gap: 15px;
+    font-size: 18px;
+    z-index: 999;
+    margin-bottom: 100px;
+  }
+ 
+
+  .nav-links.active {
+    display: flex;
+    
+
+  }
+.hero{
+  margin-top: 150px;
+}
+}

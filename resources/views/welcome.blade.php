@@ -19,13 +19,13 @@
   <div class="nav-inner">
     <div class="logo">
       <div class="logo-mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C9 2 7 4.5 7 7.5c0 2 1 3.5 1 5.5 0 3-2 4-2 6.5C6 21 8 22 12 22s6-1 6-2.5c0-2.5-2-3.5-2-6.5 0-2 1-3.5 1-5.5C17 4.5 15 2 12 2Z"/></svg>
+      <i class="fa-solid fa-hospital" style="color: white;"></i>
       </div>
       Little Roots
     </div>
-    <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#doctors">Our Doctors</a>
+    <div class="nav-links ">
+      <a href="#services " >Services</a>
+      <a href="{{ route('doctors') }}">Our Doctors</a>
       <a href="#schedule">Availability</a>
       <a href="#booking">Book a Visit</a>
     </div>
@@ -61,7 +61,7 @@
 
     <div class="hero-media">
       <div class="main-img">
-        <img src="./images.jpg" alt="Pediatrician examining a smiling child">
+        <img src="{{ asset('images/images.jpg') }}" alt="Pediatrician">
       </div>
       <div class="floating-tag ft-rating">
         <div>
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div class="offer-r">
-        <span class="offer-code">CODE: FIRSTVISIT</span>
+        <span class="offer-code">CODE: FI74933</span>
         <a href="#booking" class="offer-btn">Claim Offer</a>
       </div>
     </div>
@@ -148,7 +148,9 @@
     <div class="doctors-grid">
       <div class="doc-card">
         <div class="doc-photo">
+           <a href="{{ route('doctors') }}?id=1">
           <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=500&auto=format&fit=crop" alt="Dr. Sarah Bennett">
+         </a>
           <div class="doc-avail-badge"><span class="dot"></span>Available</div>
         </div>
         <div class="doc-body">
@@ -165,7 +167,10 @@
       </div>
       <div class="doc-card">
         <div class="doc-photo">
-          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=500&auto=format&fit=crop" alt="Dr. Michael Osei">
+           <a href="{{ route('doctors') }}?id=2">
+
+             <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=500&auto=format&fit=crop" alt="Dr. Michael Osei">
+            </a>
           <div class="doc-avail-badge" style="background:var(--orange-pale);"><span class="dot" style="background:var(--orange);"></span>4:00 PM</div>
         </div>
         <div class="doc-body">
@@ -182,7 +187,10 @@
       </div>
       <div class="doc-card">
         <div class="doc-photo">
-          <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=500&auto=format&fit=crop" alt="Dr. Laila Haddad">
+           <a href="{{ route('doctors') }}?id=3">
+
+             <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=500&auto=format&fit=crop" alt="Dr. Laila Haddad">
+            </a>
           <div class="doc-avail-badge"><span class="dot"></span>Available</div>
         </div>
         <div class="doc-body">
@@ -199,7 +207,10 @@
       </div>
       <div class="doc-card">
         <div class="doc-photo">
-          <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?q=80&w=500&auto=format&fit=crop" alt="Dr. James Whitfield">
+           <a href="{{ route('doctors') }}?id=4">
+
+             <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?q=80&w=500&auto=format&fit=crop" alt="Dr. James Whitfield">
+            </a>
           <div class="doc-avail-badge"><span class="dot"></span>Available</div>
         </div>
         <div class="doc-body">
@@ -229,8 +240,8 @@
       <div class="avail-left">
         <h3>Choose a doctor</h3>
         <p>Select from our specialists to see their open consultation hours this week.</p>
-        <div class="avail-doctor-select">
-          <div class="mini-doc active">
+        <div class="avail-doctor-select"style="cursor: pointer;">
+          <div class="mini-doc active" >
             <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=200&auto=format&fit=crop" alt="">
             <div><b>Dr. Sarah Bennett</b><span>Senior Pediatrician</span></div>
           </div>
@@ -245,7 +256,7 @@
         </div>
       </div>
       <div>
-        <div class="day-pills">
+        <div class="day-pills" style="cursor: pointer;">
           <div class="day-pill active">Sat 12</div>
           <div class="day-pill">Sun 13</div>
           <div class="day-pill">Mon 14</div>
@@ -357,7 +368,7 @@
               <small>In-person or online</small>
             </button>
           </div>
-          <form class="form-grid" action="{{ route('appointments.store') }}" method="POST">
+         <form class="form-grid" action="{{ route('appointments.store') }}" method="POST">
     @csrf
 
     <div class="field">
@@ -413,6 +424,7 @@
       </button>
     </div>
 </form>
+
         </div>
       </div>
     </div>
@@ -425,7 +437,7 @@
       <div>
         <div class="footer-logo">
           <div class="logo-mark" style="width:34px;height:34px;">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2C9 2 7 4.5 7 7.5c0 2 1 3.5 1 5.5 0 3-2 4-2 6.5C6 21 8 22 12 22s6-1 6-2.5c0-2.5-2-3.5-2-6.5 0-2 1-3.5 1-5.5C17 4.5 15 2 12 2Z"/></svg>
+          <i class="fa-solid fa-hospital" style="color: white;"></i>
           </div>
           Little Roots Pediatrics
         </div>
@@ -452,5 +464,6 @@
     <div class="footer-bottom">© 2026 Little Roots Pediatrics. All rights reserved.</div>
   </div>
 </footer>
-</body>
+
+<script src="{{ asset('js/app.js') }}"></script></body>
 </html>
