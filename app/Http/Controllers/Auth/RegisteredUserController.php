@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             // 1. Create the Person row (existing table, columns exactly as-is).
             $person = Person::create([
                 'Name' => $validated['name'],
-                'DateofBirth' => $validated['date_of_birth'],
+                'DateOfBirth' => $validated['date_of_birth'],
                 'Gender' => $validated['gender'],
                 'Phone' => $validated['phone'],
                 'Email' => $validated['email'],

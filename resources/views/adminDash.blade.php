@@ -30,7 +30,7 @@
 
   <div class="nav-group">
     <span class="nav-label">Overview</span>
-    <a href="#" class="nav-item active">
+    <a href="#" class="nav-item active" onclick="showSection('overview', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
       Dashboard
     </a>
@@ -39,11 +39,11 @@
      web site 
       <span class="badge">12</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" onclick="showSection('patients', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Patients
     </a>
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" onclick="showSection('doctors', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M8 4v2M16 4v2"/><path d="M6 8h12v4a6 6 0 0 1-12 0z"/></svg>
       Doctors
     </a>
@@ -102,6 +102,7 @@
     </div>
   </div>
 
+  <div id="section-overview">
   <div class="stat-grid">
     <div class="stat-card">
       <div class="stat-top">
@@ -250,6 +251,92 @@
       </tbody>
     </table>
   </div>
+  </div> <!-- end section-overview -->
+
+  <div id="section-patients" style="display: none;">
+    <div class="table-panel">
+      <div class="panel-head">
+        <div>
+          <h3>Patients & Appointments</h3>
+          <p>List of all patient appointments</p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Doctor</th>
+            <th>Appointment Date/Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse($patientAppointments as $apt)
+          <tr>
+            <td>
+              <div class="person-cell">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($apt->person->Name ?? 'Unknown') }}&background=random" alt="">
+                <div><b>{{ $apt->person->Name ?? 'Unknown' }}</b><span>{{ $apt->person->Email ?? 'No email' }}</span></div>
+              </div>
+            </td>
+            <td>{{ $apt->doctor->person->Name ?? 'N/A' }}</td>
+            <td>{{ $apt->AppointmentDateTime }}</td>
+            <td>
+              @if($apt->AppointmentStatus === 'Completed')
+                  <span class="status-pill pill-confirmed"><span class="dot"></span>Completed</span>
+              @elseif($apt->AppointmentStatus === 'Cancelled')
+                  <span class="status-pill" style="background:#fee2e2; color:#991b1b;"><span class="dot" style="background:#991b1b;"></span>Cancelled</span>
+              @else
+                  <span class="status-pill pill-new"><span class="dot"></span>{{ $apt->AppointmentStatus }}</span>
+              @endif
+            </td>
+          </tr>
+          @empty
+          <tr>
+            <td colspan="4" style="text-align:center; padding: 20px;">No appointments found.</td>
+          </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div> <!-- end section-patients -->
+
+  <div id="section-doctors" style="display: none;">
+    <div class="table-panel">
+      <div class="panel-head">
+        <div>
+          <h3>Doctors List</h3>
+          <p>All registered doctors in the clinic</p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Doctor Name</th>
+            <th>Specialization</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse($doctorsList as $doc)
+          <tr>
+            <td>
+              <div class="person-cell">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($doc->person->Name ?? 'Unknown') }}&background=random" alt="">
+                <div><b>{{ $doc->person->Name ?? 'Unknown' }}</b><span>{{ $doc->person->Email ?? 'No email' }}</span></div>
+              </div>
+            </td>
+            <td>{{ $doc->Specialization }}</td>
+          </tr>
+          @empty
+          <tr>
+            <td colspan="2" style="text-align:center; padding: 20px;">No doctors found.</td>
+          </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div> <!-- end section-doctors -->
+
 </main>
 
 <!--end navbar -->
@@ -257,6 +344,30 @@
 
 
 
-    <script src="{{ asset('js/dash.js') }}"></script></body>
+    <script src="{{ asset('js/dash.js') }}"></script>
+    <script>
+      function showSection(sectionId, element) {
+        // Hide all sections
+        document.getElementById('section-overview').style.display = 'none';
+        document.getElementById('section-patients').style.display = 'none';
+        document.getElementById('section-doctors').style.display = 'none';
+
+        // Remove active class from nav items
+        let navItems = document.querySelectorAll('.nav-group .nav-item');
+        navItems.forEach(function(item) {
+          if (!item.closest('form')) {
+              item.classList.remove('active');
+          }
+        });
+
+        // Show selected section
+        document.getElementById('section-' + sectionId).style.display = 'block';
+
+        // Add active class to clicked nav item
+        if (element) {
+          element.classList.add('active');
+        }
+      }
+    </script>
 </body>
 </html>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use App\Models\Doctor;
+use App\Models\Appointment;
 
 class DashboardController extends Controller
 {
@@ -38,12 +40,18 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $doctorsList = Doctor::with('person')->get();
+
+        $patientAppointments = Appointment::with(['person', 'doctor.person'])->get();
+
         return view('adminDash', compact(
             'visitorsCount',
             'newRegistrations',
             'appointmentsBooked',
             'noShows',
-            'recentRegistrations'
+            'recentRegistrations',
+            'doctorsList',
+            'patientAppointments'
         ));
     }
 }

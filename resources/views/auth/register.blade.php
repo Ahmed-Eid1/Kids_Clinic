@@ -4,21 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>medical</title>
+    <title>Register</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet" />
+
     <style>
     :root {
         --gold: #c9a24b;
@@ -32,9 +24,7 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    h1,
-    h2,
-    .brand-font {
+    h1, h2, .brand-font {
         font-family: 'Playfair Display', serif;
     }
 
@@ -93,13 +83,6 @@
         left: -80px;
     }
 
-    .login-visual i.bi {
-        font-size: 3rem;
-        color: var(--gold);
-        margin-bottom: 20px;
-        position: relative;
-    }
-
     .login-visual h2 {
         color: var(--gold-light);
         font-size: 2.1rem;
@@ -131,22 +114,18 @@
 
     .login-form-side {
         flex: 1.1;
-        padding: 55px 50px;
+        padding: 40px 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .login-form-side h1 {
         color: var(--dark-brown);
         font-size: 2rem;
         margin-bottom: 6px;
-    }
-
-    .login-form-side .subtitle {
-        color: #8a7a68;
-        margin-bottom: 32px;
-        font-size: 0.95rem;
     }
 
     .form-label {
@@ -160,64 +139,22 @@
         position: relative;
     }
 
-    .form-control {
+    .form-control, .form-select {
         border: 1.5px solid #e5dcc9;
         border-radius: 10px;
-        padding: 12px 45px 12px 16px;
+        padding: 12px 16px;
         background: #fff;
         font-size: 0.95rem;
         transition: all 0.25s ease;
     }
 
-    .form-control:focus {
+    .form-control:focus, .form-select:focus {
         border-color: var(--gold);
         box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.15);
     }
 
-    .form-control.is-invalid {
+    .form-control.is-invalid, .form-select.is-invalid {
         border-color: #d9534f;
-    }
-
-    .input-icon {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translateY(-50%);
-        color: #b9a689;
-        pointer-events: none;
-    }
-
-    .toggle-password {
-        position: absolute;
-        top: 50%;
-        left: 15px;
-        transform: translateY(-50%);
-        color: #b9a689;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
-    }
-
-    .invalid-feedback {
-        font-size: 0.8rem;
-    }
-
-    .form-check-label {
-        font-size: 0.88rem;
-        color: #6b5c4a;
-    }
-
-    .forgot-link {
-        font-size: 0.88rem;
-        color: var(--gold);
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    .forgot-link:hover {
-        color: var(--dark-brown);
-        text-decoration: underline;
     }
 
     .btn-login {
@@ -242,41 +179,8 @@
     .login-visual .fa-hospital {
         width: 50px !important;
         height: 50px !important;
-        padding: 30px;
-
-    }
-
-    .divider {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 24px 0;
-        color: #b9a689;
-        font-size: 0.85rem;
-    }
-
-    .divider::before,
-    .divider::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: #e5dcc9;
-    }
-
-    .btn-social {
-        border: 1.5px solid #e5dcc9;
-        border-radius: 10px;
-        padding: 10px;
-        background: #fff;
-        color: var(--dark-brown);
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .btn-social:hover {
-        border-color: var(--gold);
-        background: #fdf9f0;
+        padding: 30px 0;
+        font-size: 3rem;
     }
 
     .signup-text {
@@ -322,73 +226,119 @@
 <body>
 
     <div class="login-wrapper">
-
-
         <div class="login-visual">
             <i class="fa-solid fa-hospital" style="color:var(--gold)"></i>
             <h2 class=" brand-font"> Little Roots</h2>
-            <p>We believe every child deserves the best possible care. Our mission is to support healthy growth, early
-                diagnosis, and effective treatment while giving families the confidence and guidance they need.</p>
+            <p>Join our family today. Register to book appointments, track your child's health records, and access personalized care recommendations.</p>
 
             <div class="visual-feature">
                 <i class="bi bi-check-circle-fill"></i>
-                <span>Track your orders in real-time</span>
+                <span>Easy Appointment Booking</span>
             </div>
             <div class="visual-feature">
                 <i class="bi bi-check-circle-fill"></i>
-                <span>Exclusive offers and discounts for members</span>
+                <span>Secure Health Records</span>
             </div>
             <div class="visual-feature">
                 <i class="bi bi-check-circle-fill"></i>
-                <span>Save your delivery address for faster orders</span>
+                <span>Direct Communication with Doctors</span>
             </div>
         </div>
 
-        <!-- فورم تسجيل الدخول -->
         <div class="login-form-side">
-            <h1 class="brand-font"> ....login now </h1>
+            <h1 class="brand-font"> Register Now </h1>
             <br>
-            <form id="loginForm" novalidate method="POST" action="{{ route('login') }}">
+            <form id="registerForm" novalidate method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <div class="mb-3">
-                    <label class="form-label"> : email </label>
-                    <div class="input-group-custom">
-                        <input type="email" name="email" id="emailField" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="example@email.com" value="{{ old('email') }}" required>
-                        <i class="bi bi-envelope input-icon"></i>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
-                    @error('email')
-                        <div class="text-danger small mt-1">{{ $message }}</div>
-                    @enderror
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">: password</label>
-                    <div class="input-group-custom">
-                        <input type="password" name="password" id="passwordField" class="form-control @error('password') is-invalid @enderror"
-                            placeholder=".....password" required minlength="6">
-                        <br>
-                        <button type="button" class="toggle-password" onclick="togglePassword()">
-                            <i class="bi bi-eye" id="toggleIcon"></i>
-                        </button>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                            placeholder="01XXXXXXXXX" value="{{ old('phone') }}" required>
+                        @error('phone')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
-                    @error('password')
-                        <div class="text-danger small mt-1">{{ $message }}</div>
-                    @enderror
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select name="gender" class="form-select @error('gender') is-invalid @enderror" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                        </select>
+                        @error('gender')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" name="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror"
+                            value="{{ old('date_of_birth') }}" required>
+                        @error('date_of_birth')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
 
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Address (Optional)</label>
+                        <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
+                            value="{{ old('address') }}">
+                        @error('address')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
 
-                <button type="submit" class="btn btn-login w-100">
-                    login <i class="bi bi-arrow-left ms-1"></i>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                        @error('password')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" name="password_confirmation" class="form-control" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-login w-100 mt-2">
+                    Register
                 </button>
 
-                <div class="signup-text mt-4">
-                    Don't have an account? <a href="{{ route('register') }}">Register here</a>
+                <div class="signup-text">
+                    Already have an account? <a href="{{ route('login') }}">Login here</a>
                 </div>
-
-
             </form>
         </div>
     </div>
+
+</body>
+</html>
