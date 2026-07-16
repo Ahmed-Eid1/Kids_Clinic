@@ -54,4 +54,41 @@ class DashboardController extends Controller
             'patientAppointments'
         ));
     }
+
+    public function storeDoctor(\Illuminate\Http\Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:20',
+            'gender' => 'required|in:Male,Female',
+            'date_of_birth' => 'required|date',
+            'specialization' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($validated) {
+            $person = \App\Models\Person::create([
+                'Name' => $validated['name'],
+                'Email' => $validated['email'],
+                'Phone' => $validated['phone'],
+                'Gender' => $validated['gender'],
+                'DateOfBirth' => $validated['date_of_birth'],
+            ]);
+
+            \App\Models\Doctor::create([
+                'PersonID' => $person->PersonID,
+                'Specialization' => $validated['specialization'],
+            ]);
+
+            \App\Models\User::create([
+                'person_id' => $person->PersonID,
+                'email' => $validated['email'],
+                'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+                'role' => 'doctor',
+            ]);
+        });
+
+        return redirect()->back()->with('success', 'Doctor registered successfully!');
+    }
 }

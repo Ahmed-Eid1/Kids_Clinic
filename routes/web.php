@@ -28,6 +28,7 @@ Route::post('/book', [AppointmentController::class, 'store'])->name('appointment
 // Role-based dashboard routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::post('/admin/doctor', [\App\Http\Controllers\Admin\DashboardController::class, 'storeDoctor'])->name('admin.doctor.store');
 });
 
 Route::middleware(['auth', 'role:doctor'])->group(function () {

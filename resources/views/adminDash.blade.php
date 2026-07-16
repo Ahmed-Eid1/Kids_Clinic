@@ -34,7 +34,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
       Dashboard
     </a>
-    <a href="#" class="nav-item">
+    <a href="{{ route('home') }}" class="nav-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
      web site 
       <span class="badge">12</span>
@@ -46,6 +46,10 @@
     <a href="#" class="nav-item" onclick="showSection('doctors', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M8 4v2M16 4v2"/><path d="M6 8h12v4a6 6 0 0 1-12 0z"/></svg>
       Doctors
+    </a>
+    <a href="#" class="nav-item" onclick="showSection('add-doctor', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Add a Doctor
     </a>
   </div>
 
@@ -84,6 +88,20 @@
 
 <!-- navbar -->
 <main class="main">
+  @if(session('success'))
+    <div style="background: #dcfce7; color: #166534; padding: 15px; margin: 20px; border-radius: 8px;">
+        {{ session('success') }}
+    </div>
+  @endif
+  @if($errors->any())
+    <div style="background: #fee2e2; color: #991b1b; padding: 15px; margin: 20px; border-radius: 8px;">
+      <ul style="margin: 0; padding-left: 20px;">
+        @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
   <div class="topbar">
     <div>
       <h1>Good morning, {{ explode(' ', auth()->user()->person->Name ?? 'Admin')[0] }} 👋</h1>
@@ -303,11 +321,12 @@
 
   <div id="section-doctors" style="display: none;">
     <div class="table-panel">
-      <div class="panel-head">
+      <div class="panel-head" style="display: flex; justify-content: space-between; align-items: center;">
         <div>
           <h3>Doctors List</h3>
           <p>All registered doctors in the clinic</p>
         </div>
+        <button onclick="showSection('add-doctor', document.querySelector('.nav-group .nav-item[onclick*=\'add-doctor\']'))" style="background: var(--dark-brown); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500;">+ Add Doctor</button>
       </div>
       <table>
         <thead>
@@ -337,6 +356,65 @@
     </div>
   </div> <!-- end section-doctors -->
 
+  <div id="section-add-doctor" style="display: none;">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Register New Doctor</h3>
+          <p>Add a new specialist to the clinic's system</p>
+        </div>
+      </div>
+      <form action="{{ route('admin.doctor.store') }}" method="POST" style="padding: 20px;">
+        @csrf
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Name</label>
+            <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Email</label>
+            <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Phone</label>
+            <input type="text" name="phone" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Gender</label>
+            <select name="gender" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px; background: white;">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Date of Birth</label>
+            <input type="date" name="date_of_birth" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Specialization</label>
+            <input type="text" name="specialization" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+          <div style="grid-column: span 2;">
+            <label style="display: block; margin-bottom: 5px; color: var(--dark-brown);">Password</label>
+            <input type="password" name="password" required style="width: 100%; padding: 10px; border: 1.5px solid #e5dcc9; border-radius: 8px;">
+          </div>
+        </div>
+        @if(session('success') && str_contains(session('success'), 'Doctor'))
+          <div style="background: #dcfce7; color: #166534; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+              {{ session('success') }}
+          </div>
+        @endif
+        <div style="grid-column: span 2; margin-top: 10px;">
+          <button type="submit" style="background: #0D9488; color: white; border: none; padding: 14px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.2); transition: all 0.2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Add Doctor
+          </button>
+        </div>
+      </form>
+    </div>
+  </div> <!-- end section-add-doctor -->
+
 </main>
 
 <!--end navbar -->
@@ -346,11 +424,20 @@
 
     <script src="{{ asset('js/dash.js') }}"></script>
     <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        @if(session('success') && str_contains(session('success'), 'Doctor'))
+          showSection('add-doctor', document.querySelector('.nav-group .nav-item[onclick*="add-doctor"]'));
+        @elseif($errors->any())
+          showSection('add-doctor', document.querySelector('.nav-group .nav-item[onclick*="add-doctor"]'));
+        @endif
+      });
+
       function showSection(sectionId, element) {
         // Hide all sections
         document.getElementById('section-overview').style.display = 'none';
         document.getElementById('section-patients').style.display = 'none';
         document.getElementById('section-doctors').style.display = 'none';
+        document.getElementById('section-add-doctor').style.display = 'none';
 
         // Remove active class from nav items
         let navItems = document.querySelectorAll('.nav-group .nav-item');

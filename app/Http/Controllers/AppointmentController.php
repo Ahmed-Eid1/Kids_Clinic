@@ -48,7 +48,7 @@ class AppointmentController extends Controller
         'DoctorID'            => $validated['DoctorID'],
     ]);
 
-    return redirect()->back()->with('success', 'Appointment booked successfully!');
+    return redirect()->to(url()->previous() . '#booking')->with('success', 'Appointment booked successfully!');
 }
 
     // List all appointments (for dashboard)

@@ -375,6 +375,11 @@
               <small>In-person or online</small>
             </button>
           </div>
+          @if(session('success'))
+            <div class="alert alert-success" style="padding: 15px; background: #dcfce7; color: #166534; border-radius: 8px; margin-bottom: 20px;">
+                {{ session('success') }}
+            </div>
+          @endif
          <form class="form-grid" action="{{ route('appointments.store') }}" method="POST">
     @csrf
 
